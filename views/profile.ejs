@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../stylesheet/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-profile">
+        <div class="nav">
+            <a href="/logout">Logout</a>
+        </div>
+        <h2><span>Hello,</span><%= user.username %> 👋
+        </h2>
+        <h4>you can create a post.</h4>
+        <form action="/post" method="post">
+            <textarea name="content" placeholder="What's on your mind ?"></textarea>
+            <input type="submit" value="Create New Post">
+        </form>
+        <div class="posts">
+            <h3>Your Posts</h3>
+            <div class="postcontainer">
+                <% user.posts.reverse().forEach(function (post) { %>
+                    <div class="post">
+                        <h4>@<%= user.username %></h4>
+                        <p><%= post.content %></p>
+                        <small class="likes"><%= post.likes.length%> likes</small>
+                        <div class="buttons">
+                            <a href="/like/<%= post._id %>">
+                                <%= post.likes.indexOf(user._id) === -1 ? "Like" : "Unlike" %>
+                            </a>
+                            <a href="/edit/<%= post._id %>" class="edit">edit</a>
+                        </div>
+                    </div>
+              <% }) %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
